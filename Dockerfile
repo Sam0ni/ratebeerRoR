@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 libpq-dev libpq5 libyaml-dev nodejs && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -36,7 +36,7 @@ RUN apt-get update -qq && \
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libpq-dev \
-    libpq \
+    libpq5 \
     libyaml-dev \
     nodejs
   
