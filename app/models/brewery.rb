@@ -4,6 +4,10 @@ class Brewery < ApplicationRecord
 
   include RatingAverage
 
+  validates :name, uniqueness: true, presence: true
+  validates :year, numericality: { greater_than_or_equal_to: 1040, only_integer: true}
+  validate :less_than_or_equalt_to_current_year
+
   def print_report
     puts name
     puts "established at year #{year}"
@@ -13,5 +17,11 @@ class Brewery < ApplicationRecord
   def restart
     self.year = 2022
     puts "changed year to #{year}"
+  end
+
+  def less_than_or_equalt_to_current_year
+    if year > Time.now.year
+      errors.add(:year, "cannot be in the future")
+    end
   end
 end
