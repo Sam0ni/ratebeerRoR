@@ -3,17 +3,34 @@
 <p><%= @user.username %></p>
 <p><%= "Has made #{@user.ratings.count} ratings, average rating #{@user.average_rating}"%></p>
 
+<p><strong>member of</strong></p>
+
+<ul>
+  <% @user.beer_clubs.each do |club| %>
+  <li><%= link_to club.name, club %></li>
+  <% end %>
+</ul>
+
 <p><strong>ratings</strong></p>
 
 <ul>
   <% @user.ratings.each do |rating| %>
-  <li><%= rating.to_s %> <%= link_to "Delete", rating_path(rating), data: {"turbo-method": :delete} %></li>
+  <li>
+    <%= rating.to_s %>
+    <% if @user == current_user %>
+      <%= link_to "Delete", rating_path(rating), data: {"turbo-method": :delete} %>
+    <% end %>
+  </li>
   <% end %>
 </ul>
 
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <% if @user == current_user %>
+    <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <% end %>
   <%= link_to "Back to users", users_path %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <% if @user == current_user %>
+    <%= button_to "Destroy this user", @user, method: :delete %>
+  <% end %>
 </div>

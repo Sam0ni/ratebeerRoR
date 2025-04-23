@@ -36,24 +36,33 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if current_user != @user
+      render :show, status: :unauthorized, location: @user
+    else
+      respond_to do |format|
+        if @user.update(user_params)
+          format.html { redirect_to @user, notice: "User was successfully updated." }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
+    if current_user != @user
+      render :show, status: :unauthorized, location: @user
+    else
+      @user.destroy!
+      session[:user_id] = nil
 
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -65,6 +74,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :username ])
+      params.require(:user).permit(:username, :password, :password_confirmation)
     end
 end
