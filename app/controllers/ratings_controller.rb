@@ -11,7 +11,7 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
     @rating.user = current_user
-    
+
     if @rating.save
       redirect_to current_user
     else

@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_membership, only: %i[show edit update destroy]
 
   # GET /memberships or /memberships.json
   def index
@@ -13,7 +13,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    already_in = current_user.beer_clubs.map {|club| club.name}
+    already_in = current_user.beer_clubs.map(&:name)
     @beer_clubs = BeerClub.where.not(name: already_in)
   end
 
@@ -29,17 +29,15 @@ class MembershipsController < ApplicationController
     already_member = Membership.find_by user: current_user, beer_club_id: @membership.beer_club_id
     puts already_member
     if already_member
-      already_in = current_user.beer_clubs.map {|club| club.name}
+      already_in = current_user.beer_clubs.map(&:name)
       @beer_clubs = BeerClub.where.not(name: already_in)
       @membership.errors.add(:base, "Already a member")
       render :new, status: :unprocessable_entity
+    elsif @membership.save
+      redirect_to current_user
     else
-      if @membership.save
-        redirect_to current_user
-      else
-        @beer_clubs = BeerClub.all
-        render :new, status: :unprocessable_entity 
-      end
+      @beer_clubs = BeerClub.all
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -67,13 +65,14 @@ class MembershipsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_membership
-      @membership = Membership.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def membership_params
-      params.expect(membership: [ :user_id, :beer_club_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_membership
+    @membership = Membership.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def membership_params
+    params.expect(membership: [:user_id, :beer_club_id])
+  end
 end

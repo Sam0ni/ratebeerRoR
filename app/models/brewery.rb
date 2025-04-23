@@ -5,7 +5,7 @@ class Brewery < ApplicationRecord
   include RatingAverage
 
   validates :name, uniqueness: true, presence: true
-  validates :year, numericality: { greater_than_or_equal_to: 1040, only_integer: true}
+  validates :year, numericality: { greater_than_or_equal_to: 1040, only_integer: true }
   validate :less_than_or_equalt_to_current_year
 
   def print_report
@@ -20,8 +20,8 @@ class Brewery < ApplicationRecord
   end
 
   def less_than_or_equalt_to_current_year
-    if year > Time.now.year
-      errors.add(:year, "cannot be in the future")
-    end
+    return unless year > Time.now.year
+
+    errors.add(:year, "cannot be in the future")
   end
 end
