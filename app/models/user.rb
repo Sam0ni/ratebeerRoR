@@ -11,4 +11,25 @@ class User < ApplicationRecord
   validates :username, uniqueness: true, length: { minimum: 3, maximum: 30 }
   validates :password, length: { minimum: 4 }, format: { with: /\d/, message: 'must include at least one digit' }
   validates :password, format: { with: /[A-Z]/, message: 'must include at least one capital letter' }
+
+  def favorite_beer
+    return nil if ratings.empty?
+
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?
+
+    avg = ratings.joins(:beer).group("beers.style").average(:score)
+    avg.max_by { |k,v| v}[0]
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+    
+    avg = ratings.joins(beer: :brewery).group("breweries.name").average(:score)
+    avg.max_by { |k,v| v}[0]
+  end
+  
 end
