@@ -33,7 +33,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Make database migrations
-        run: bin/rails db:migrate
+      - name: Setup database
+        run: |
+          bundle exec rails db:create
       - name: Run tests
         run: bundle exec rspec
