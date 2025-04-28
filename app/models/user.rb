@@ -22,14 +22,13 @@ class User < ApplicationRecord
     return nil if ratings.empty?
 
     avg = ratings.joins(:beer).group("beers.style").average(:score)
-    avg.max_by { |k,v| v}[0]
+    avg.max_by { |_k, v| v }[0]
   end
 
   def favorite_brewery
     return nil if ratings.empty?
-    
+
     avg = ratings.joins(beer: :brewery).group("breweries.name").average(:score)
-    avg.max_by { |k,v| v}[0]
+    avg.max_by { |_k, v| v }[0]
   end
-  
 end
