@@ -65,6 +65,7 @@ group :test do
   gem "webdrivers"
   gem 'launchy'
   gem 'simplecov', require: false
+  gem "rubocop-rails-omakase", require: false
 end
 
 group :development, :test do
