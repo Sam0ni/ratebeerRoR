@@ -1,7 +1,13 @@
 require "rails_helper"
 
+include Helpers
+
 describe "beers page" do
   let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
+  let!(:user) { FactoryBot.create :user }
+  before :each do
+    sign_in(username: "Pekka", password: "Foobar1")
+  end
   it "should be able to add a beer with valid name" do
     visit new_beer_path
     fill_in("beer_name", with: "Testiolut")

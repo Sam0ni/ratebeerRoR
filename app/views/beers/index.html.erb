@@ -12,4 +12,4 @@
 
 <%= link_to "List Of Breweries", breweries_path %>
 
-<%= link_to "New beer", new_beer_path %>
+<%= link_to "New beer", new_beer_path if current_user %>
