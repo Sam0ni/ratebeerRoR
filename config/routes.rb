@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "signin", to: "sessions#new"
   delete "signout", to: "sessions#destroy"
   resource :session, only: [:new, :create, :destroy]
+  get "places", to: "places#index"
+  post "places", to: "places#search"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
