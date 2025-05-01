@@ -27,14 +27,13 @@ class MembershipsController < ApplicationController
     @membership.user = current_user
 
     already_member = Membership.find_by user: current_user, beer_club_id: @membership.beer_club_id
-    puts already_member
     if already_member
       already_in = current_user.beer_clubs.map(&:name)
       @beer_clubs = BeerClub.where.not(name: already_in)
       @membership.errors.add(:base, "Already a member")
       render :new, status: :unprocessable_entity
     elsif @membership.save
-      redirect_to current_user
+      redirect_to beer_club_path(@membership.beer_club_id), notice: "#{current_user.username} welcome to the club."
     else
       @beer_clubs = BeerClub.all
       render :new, status: :unprocessable_entity

@@ -31,4 +31,9 @@ class User < ApplicationRecord
     avg = ratings.joins(beer: :brewery).group("breweries.name").average(:score)
     avg.max_by { |_k, v| v }[0]
   end
+
+  def member_of(beer_club_id)
+    already_in = beer_clubs.map(&:id)
+    return already_in.find{ |id| id == beer_club_id}
+  end
 end
