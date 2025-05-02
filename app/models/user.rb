@@ -35,10 +35,10 @@ class User < ApplicationRecord
 
   def member_of(beer_club_id)
     already_in = beer_clubs.map(&:id)
-    return already_in.find{ |id| id == beer_club_id}
+    already_in.find{ |id| id == beer_club_id }
   end
 
   def get_membership(beer_club_id)
-    return memberships.find_by beer_club_id: beer_club_id
+    memberships.find_by beer_club_id: beer_club_id
   end
 end

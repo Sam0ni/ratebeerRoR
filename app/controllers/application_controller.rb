@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   def latest_search
     return nil if session[:last_search].nil?
+
     session[:last_search]
   end
 

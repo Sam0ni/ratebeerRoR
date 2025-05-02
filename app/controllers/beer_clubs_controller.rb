@@ -9,7 +9,7 @@ class BeerClubsController < ApplicationController
 
   # GET /beer_clubs/1 or /beer_clubs/1.json
   def show
-    if current_user && current_user.member_of(@beer_club.id)
+    if current_user&.member_of(@beer_club.id)
       @membership = current_user.get_membership(@beer_club.id)
     else
       @membership = Membership.new
