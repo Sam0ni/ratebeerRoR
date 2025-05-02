@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @style %>
+
+<div>
+    <ul>
+        <strong>beers:</strong>
+        <% @style.beers.each do |beer| %>
+            <li><%= beer.name %></li>
+        <% end %>
+    </ul>
+</div>
+
+<%= link_to "Back to styles", styles_path %>

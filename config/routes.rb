@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :places, only: [:index, :show]
   post "places", to: "places#search"
+  resources :styles, only: [:index, :show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

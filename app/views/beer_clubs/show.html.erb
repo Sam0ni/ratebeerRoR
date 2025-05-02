@@ -9,6 +9,15 @@
     <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.submit "Join the beer club" %>
   <% end %>
+
+<% elsif current_user && current_user.member_of(@beer_club.id) %>
+  
+  <%= form_with(url: membership_path(@membership), method: :delete) do |form| %>
+    <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.submit "End the membership" %>
+  <% end %>
+  
 <% end %>
 
 <div>

@@ -25,7 +25,9 @@ class BeersController < ApplicationController
 
   # POST /beers or /beers.json
   def create
-    @beer = Beer.new(beer_params)
+    @beer = Beer.new name: beer_params[:name], brewery_id: beer_params[:brewery_id]
+    style = Style.find(beer_params[:style])
+    @beer.style = style
 
     respond_to do |format|
       if @beer.save
@@ -75,6 +77,6 @@ class BeersController < ApplicationController
 
   def set_breweries_and_styles_for_template
     @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
+    @styles = Style.all.map {|style| [style.name, style.id]}
   end
 end

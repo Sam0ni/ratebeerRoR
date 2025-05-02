@@ -21,8 +21,9 @@ class User < ApplicationRecord
   def favorite_style
     return nil if ratings.empty?
 
-    avg = ratings.joins(:beer).group("beers.style").average(:score)
-    avg.max_by { |_k, v| v }[0]
+    avg = ratings.joins(:beer).group("beers.style_id").average(:score)
+    fav_style = avg.max_by { |_k, v| v }[0]
+    Style.find(fav_style).name
   end
 
   def favorite_brewery
@@ -35,5 +36,9 @@ class User < ApplicationRecord
   def member_of(beer_club_id)
     already_in = beer_clubs.map(&:id)
     return already_in.find{ |id| id == beer_club_id}
+  end
+
+  def get_membership(beer_club_id)
+    return memberships.find_by beer_club_id: beer_club_id
   end
 end
