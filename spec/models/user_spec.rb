@@ -90,7 +90,7 @@ RSpec.describe User, type: :model do
     it "is the style of the only beer rated if only one rated" do
       beer = FactoryBot.create(:beer)
       rating = FactoryBot.create(:rating, score: 20, beer: beer, user: user)
-      expect(user.favorite_style).to eq(beer.style)
+      expect(user.favorite_style).to eq(beer.style.name)
     end
 
     it "is the style with the biggest avg score if several beers rated" do

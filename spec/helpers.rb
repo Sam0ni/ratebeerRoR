@@ -15,7 +15,7 @@ module Helpers
       brew = FactoryBot.create(:brewery)
     end
     if object[:style]
-      beer = FactoryBot.create(:beer, style: object[:style], brewery: brew)
+      beer = FactoryBot.create(:beer, style: FactoryBot.create(:style, name: object[:style]), brewery: brew)
     else
       beer = FactoryBot.create(:beer, brewery: brew)
     end
