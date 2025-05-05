@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><%= header %></th>
+      <th scope="col">Average</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% best.each do |b| %>
+    <tr>
+      <td><%= b.name %></td>
+      <td><%= b.average_rating %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

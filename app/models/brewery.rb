@@ -3,10 +3,14 @@ class Brewery < ApplicationRecord
   has_many :ratings, through: :beers
 
   include RatingAverage
+  include BestByAvg
 
   validates :name, presence: true
   validates :year, numericality: { greater_than_or_equal_to: 1040, only_integer: true }
   validate :less_than_or_equalt_to_current_year
+
+  scope :active, -> { where active: true }
+  scope :retired, -> { where active: [nil,false] }
 
   def print_report
     puts name
@@ -24,4 +28,5 @@ class Brewery < ApplicationRecord
 
     errors.add(:year, "cannot be in the future")
   end
+
 end

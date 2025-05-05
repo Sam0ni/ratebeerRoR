@@ -1,0 +1,18 @@
+<h2>Best styles</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Style</th>
+      <th scope="col">Average</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_styles.each do |style| %>
+    <tr>
+      <td><%= style.name %></td>
+      <td><%= style.average_rating %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

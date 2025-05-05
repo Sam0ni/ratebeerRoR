@@ -1,11 +1,42 @@
-<h2>List of ratings</h2>
+<h2>Ratings</h2>
 
-<p>Ratings count: <%= @ratings.count %></p>
+<div class="container text-center">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="row">
+            <div class="col-8 col-sm-4">
+               <h3>Best beers</h3>
+               <%= render partial: "best", locals: {header: "Beer", best: @top_beers} %>
+            </div>
+            <div class="col-8 col-sm-4">
+               <h3>Best breweries</h3>
+               <%= render partial: "best", locals: {header: "Brewery", best: @top_breweries} %>
+            </div>
+            <div class="col-8 col-sm-4">
+               <h3>Best styles</h3>
+               <%= render partial: "best", locals: {header: "Style", best: @top_styles} %>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 
-<ul id="ratings">
- <% @ratings.each do |rating| %>
-    <li> <%= render rating %> <%= link_to rating.user.username, rating.user %></li>
- <% end %>
-</ul>
+<div>
+   <h2>Most active users</h2>
+   <ol>
+      <% @active_users.each do |u| %>
+         <li><%= "#{u.username} #{u.ratings.count} ratings" %></li>
+      <% end %>
+   </ol>
+</div>
+
+<div>
+   <h2>Recent ratings</h2>
+   <ul>
+      <% @recent_ratings.each do |r| %>
+         <li><%= "#{r.beer.name} #{r.created_at}" %></li>
+      <% end %>
+   </ul>
+</div>
 
 <%= link_to "New Rating", new_rating_path %>

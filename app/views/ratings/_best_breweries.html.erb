@@ -1,0 +1,18 @@
+<h2>Best breweries</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Brewery</th>
+      <th scope="col">Average</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_breweries.each do |brewery| %>
+    <tr>
+      <td><%= brewery.name %></td>
+      <td><%= brewery.average_rating %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

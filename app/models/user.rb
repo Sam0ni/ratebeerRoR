@@ -41,4 +41,8 @@ class User < ApplicationRecord
   def get_membership(beer_club_id)
     memberships.find_by beer_club_id: beer_club_id
   end
+
+  def self.most_active(n)
+    sorted_by_most_ratings = User.all.sort_by{ |u| -u.ratings.count }.slice(0, n)
+  end
 end

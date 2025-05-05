@@ -1,7 +1,21 @@
 <h2><%= @place.name %></h2>
+<table class="table">
+    <tbody class="table-primary">
+        <tr>
+            <th scope="row">Place type</th>
+            <td><%= @place.status %></td>
+        </tr>
 
-<p><%= @place.status %></p>
+        <tr>
+            <th scope="row">Street address</th>
+            <td><%= @place.street %></td>
+        </tr>
 
-<p><%= @place.street %></p>
+        <tr>
+            <th scope="row">Postal code and city</th>
+            <td><%= "#{@place.zip} #{@place.city}" %></td>
+        </tr>
+    </tbody>
+</table>
 
-<p><%= "#{@place.zip} #{@place.city}" %></p>
+<%= link_to "Back to places search", places_path %>
