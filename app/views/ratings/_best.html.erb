@@ -9,7 +9,7 @@
     <% best.each do |b| %>
     <tr>
       <td><%= b.name %></td>
-      <td><%= b.average_rating %></td>
+      <td><%= round(b.average_rating) %></td>
     </tr>
     <% end %>
   </tbody>

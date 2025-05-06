@@ -2,9 +2,13 @@ Rails.application.routes.draw do
   resources :memberships
   resources :beer_clubs
   get 'signup', to: 'users#new'
-  resources :users
+  resources :users do
+    post "toggle_closed", on: :member
+  end
   resources :beers
-  resources :breweries
+  resources :breweries do
+    post "toggle_activity", on: :member
+  end
   root 'breweries#index'
   get 'kaikki_bisset', to: 'beers#index'
   resources :ratings, only: [:index, :new, :create, :destroy]
@@ -13,7 +17,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :places, only: [:index, :show]
   post "places", to: "places#search"
-  resources :styles, only: [:index, :show]
+  resources :styles, only: [:index, :show, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

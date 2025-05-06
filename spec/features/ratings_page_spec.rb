@@ -14,8 +14,9 @@ describe "Rating" do
 
   it "when given, is registered to the beer and user who is signed in" do
     visit new_rating_path
-    select('iso 3', from: 'rating[beer_id]')
-    fill_in('rating[score]', with: '15')
+    select('Koff - iso 3', from: 'rating_beer_id')
+    fill_in('rating_score', with: '15')
+    save_and_open_page
 
     expect{
       click_button "Create Rating"
@@ -30,7 +31,7 @@ describe "Rating" do
     create_beers_with_many_ratings({user: user}, 20, 20, 10)
 
     visit ratings_path
-    expect(page).to have_content "Ratings count: 3"
+    expect(page).to have_content "#{user.username} 3 ratings"
   end
 
   it "is shown on the respective users page" do

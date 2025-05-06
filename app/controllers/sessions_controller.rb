@@ -8,8 +8,12 @@ class SessionsController < ApplicationController
     user = User.find_by username: params[:username]
 
     if user&.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to user, notice: "Welcome back!"
+      if !user.closed
+        session[:user_id] = user.id
+        redirect_to user, notice: "Welcome back!"
+      else
+        redirect_to signin_path, notice: "Your account is closed, please contact an admin"
+      end
     else
       redirect_to signin_path, notice: "Username and/or password mismatch"
     end

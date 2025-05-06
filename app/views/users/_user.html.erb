@@ -1,7 +1,14 @@
 <div id="<%= dom_id user %>">
-  <p>
+  <h3>
     <strong>Username:</strong>
     <%= user.username %>
-  </p>
+  </h3>
+  <div><% if user.closed  %>
+      <span class="badge bg-primary">closed</span>
+    <% end %></div>
+
+  <p><%= "Has made #{user.ratings.count} ratings, average rating #{round(user.average_rating)}"%></p>
+  <p>Favourite beer style: <%= user.favorite_style %></p>
+  <p>Favourite brewery: <%= user.favorite_brewery %></p>
 
 </div>

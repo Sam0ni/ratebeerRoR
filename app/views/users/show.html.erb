@@ -1,9 +1,7 @@
-<h2>Username:</h2>
-<p><%= @user.username %></p>
-<p><%= "Has made #{@user.ratings.count} ratings, average rating #{@user.average_rating}"%></p>
 
-<p>Favourite beer style: <%= @user.favorite_style %></p>
-<p>Favourite brewery: <%= @user.favorite_brewery %></p>
+<%= render @user %>
+
+<%= link_to "Change account status", toggle_closed_user_path(@user.id), data: {turbo_method: "post"}, class: "btn btn-danger" if current_user && current_user.admin %>
 
 <p><strong>member of</strong></p>
 
@@ -27,12 +25,7 @@
 </ul>
 
 <div>
-  <% if @user == current_user %>
-    <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <% end %>
   <%= link_to "Back to users", users_path %>
 
-  <% if @user == current_user %>
-    <%= button_to "Destroy this user", @user, method: :delete %>
-  <% end %>
+  <%= edit_and_destroy_buttons(@user) %>
 </div>

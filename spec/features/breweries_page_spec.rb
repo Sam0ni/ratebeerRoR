@@ -3,8 +3,11 @@ require 'rails_helper'
 describe "Breweries page" do
   it "should not have any before been created" do
     visit breweries_path
-    expect(page).to have_content 'Listing breweries'
-    expect(page).to have_content 'Number of breweries: 0'
+    expect(page).to have_content 'Breweries'
+    expect(page).to have_content 'Active'
+    expect(page).to have_content 'Number of active breweries: 0'
+    expect(page).to have_content 'Retired'
+    expect(page).to have_content 'Number of retired breweries: 0'
 
   end
 
@@ -21,14 +24,14 @@ describe "Breweries page" do
     end
 
     it "lists the breweries and their total number" do
-      expect(page).to have_content "Number of breweries: #{@breweries.count}"
+      expect(page).to have_content "Number of retired breweries: #{@breweries.count}"
       @breweries.each do |brewery_name|
         expect(page).to have_content brewery_name
       end
     end
 
     it "allows user to navigate to page of a Brewery" do
-      click_link "Koff"
+      click_link('Show this brewery', match: :first)
 
       expect(page).to have_content "Koff"
       expect(page).to have_content "Established at 1897"
