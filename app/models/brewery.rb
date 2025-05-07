@@ -10,7 +10,7 @@ class Brewery < ApplicationRecord
   validate :less_than_or_equalt_to_current_year
 
   scope :active, -> { where active: true }
-  scope :retired, -> { where active: [nil,false] }
+  scope :retired, -> { where active: [nil, false] }
 
   def print_report
     puts name
@@ -28,5 +28,4 @@ class Brewery < ApplicationRecord
 
     errors.add(:year, "cannot be in the future")
   end
-
 end

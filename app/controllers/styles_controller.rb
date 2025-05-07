@@ -20,7 +20,6 @@ class StylesController < ApplicationController
     end
   end
 
-
   def set_style
     @style = Style.find(params.expect(:id))
   end

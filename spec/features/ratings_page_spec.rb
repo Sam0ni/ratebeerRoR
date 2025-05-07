@@ -16,7 +16,6 @@ describe "Rating" do
     visit new_rating_path
     select('Koff - iso 3', from: 'rating_beer_id')
     fill_in('rating_score', with: '15')
-    save_and_open_page
 
     expect{
       click_button "Create Rating"

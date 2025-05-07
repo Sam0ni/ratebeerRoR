@@ -4,5 +4,4 @@ class Style < ApplicationRecord
 
   include RatingAverage
   include BestByAvg
-  
 end
